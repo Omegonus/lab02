@@ -1,0 +1,67 @@
+*build*/
+*install*/
+*.swp
+.idea/
+$ git pull origin master
+$ git log
+$ mkdir sources
+$ mkdir include
+$ mkdir examples
+$ cat > sources/print.cpp <<EOF
+#include <print.hpp>
+
+void print(const std::string& text, std::ostream& out)
+{
+  out << text;
+}
+
+void print(const std::string& text, std::ofstream& out)
+{
+  out << text;
+}
+EOF
+$ cat > include/print.hpp <<EOF
+#include <fstream>
+#include <iostream>
+#include <string>
+
+void print(const std::string& text, std::ofstream& out);
+void print(const std::string& text, std::ostream& out = std::cout);
+EOF
+$ cat > examples/example1.cpp <<EOF
+#include <print.hpp>
+
+int main(int argc, char** argv)
+{
+  print("hello");
+}
+EOF
+$ cat > examples/example2.cpp <<EOF
+#include <print.hpp>
+
+#include <fstream>
+
+int main(int argc, char** argv)
+{
+  std::ofstream file("log.txt");
+  print(std::string("hello"), file);
+}
+EOF
+$ edit README.md
+$ git status
+$ git add .
+$ git commit -m"added sources"
+$ git push origin master
+Report
+$ cd ~/workspace/
+$ export LAB_NUMBER=02
+$ git clone https://github.com/tp-labs/lab${LAB_NUMBER}.git 
+tasks/lab${LAB_NUMBER}
+$ mkdir reports/lab${LAB_NUMBER}
+$ cp tasks/lab${LAB_NUMBER}/README.md 
+reports/lab${LAB_NUMBER}/REPORT.md
+$ cd reports/lab${LAB_NUMBER}
+$ edit REPORT.md
+$ gist REPORT.md
+Homework
+Part I
